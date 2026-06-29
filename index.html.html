@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Costa Rica Hub — Tailored Tours & Car Rentals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --jungle:   #1A3D2B;
+      --jungle-light: #2A5C40;
+      --sand:     #F2E8D5;
+      --coral:    #E8623A;
+      --coral-dark: #C94E28;
+      --mist:     #F8F6F1;
+      --charcoal: #2C2C2C;
+      --mid:      #6B7280;
+      --white:    #FFFFFF;
+      --radius:   12px;
+      --shadow:   0 4px 24px rgba(26,61,43,0.10);
+      --shadow-lg:0 12px 48px rgba(26,61,43,0.16);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--mist);
+      color: var(--charcoal);
+      line-height: 1.6;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 5%;
+      background: rgba(248,246,241,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,61,43,0.08);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 2px 20px rgba(26,61,43,0.10); }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700;
+      color: var(--jungle); text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--coral); }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      color: var(--charcoal); transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--jungle); }
+    .nav-cta {
+      background: var(--coral); color: var(--white) !important;
+      padding: 10px 22px; border-radius: 100px;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--coral-dark) !important; transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--jungle); border-radius: 2px; }
+
+    /* ─── HERO ───────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(to bottom, rgba(26,61,43,0.55) 0%, rgba(26,61,43,0.30) 60%, rgba(26,61,43,0.70) 100%),
+        url('https://images.unsplash.com/photo-1518560954246-98cb2cbdb997?w=1800&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 5% 80px;
+      position: relative; overflow: hidden;
+    }
+    /* Foliage silhouette layers — the signature element */
+    .hero::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 220px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 220' preserveAspectRatio='none'%3E%3Cpath d='M0,180 C120,120 200,200 320,160 C440,120 500,190 620,150 C740,110 820,180 940,140 C1060,100 1140,170 1260,130 C1350,100 1400,150 1440,130 L1440,220 L0,220 Z' fill='%23F8F6F1'/%3E%3C/svg%3E") bottom/cover no-repeat;
+      z-index: 1;
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 780px; }
+    .hero-eyebrow {
+      display: inline-block;
+      background: rgba(232,98,58,0.18); color: #FFD9C7;
+      border: 1px solid rgba(232,98,58,0.35);
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 6px 18px; border-radius: 100px; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 700;
+      color: var(--white); line-height: 1.12;
+      margin-bottom: 24px; letter-spacing: -0.02em;
+    }
+    .hero h1 em { color: #A8D5B5; font-style: italic; }
+    .hero-sub {
+      font-size: 1.15rem; color: rgba(255,255,255,0.85);
+      max-width: 560px; margin: 0 auto 40px; font-weight: 300; line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--coral); color: var(--white);
+      padding: 16px 36px; border-radius: 100px;
+      font-weight: 600; font-size: 0.95rem; text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(232,98,58,0.35);
+    }
+    .btn-primary:hover { background: var(--coral-dark); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(232,98,58,0.45); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      border: 2px solid rgba(255,255,255,0.6);
+      padding: 14px 32px; border-radius: 100px;
+      font-weight: 500; font-size: 0.95rem; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.10); }
+
+    /* Trust strip */
+    .trust-strip {
+      position: relative; z-index: 10;
+      background: var(--white);
+      border-bottom: 1px solid rgba(26,61,43,0.08);
+    }
+    .trust-inner {
+      max-width: 1100px; margin: 0 auto; padding: 28px 5%;
+      display: flex; gap: 40px; align-items: center; justify-content: center; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; font-weight: 500; color: var(--jungle);
+    }
+    .trust-item svg { flex-shrink: 0; }
+    .trust-divider { width: 1px; height: 28px; background: rgba(26,61,43,0.15); }
+
+    /* ─── SECTION COMMON ──────────────────────────────── */
+    section { padding: 96px 5%; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--coral); margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+      color: var(--jungle); line-height: 1.2; margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1.05rem; color: var(--mid);
+      max-width: 560px; line-height: 1.75; margin-bottom: 56px;
+    }
+
+    /* ─── ABOUT / WHY US ─────────────────────────────── */
+    .about { background: var(--mist); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center;
+    }
+    .about-image-wrap { position: relative; }
+    .about-image-main {
+      width: 100%; height: 480px; object-fit: cover;
+      border-radius: 20px; display: block;
+    }
+    .about-image-badge {
+      position: absolute; bottom: -24px; right: -24px;
+      background: var(--white); border-radius: 16px;
+      padding: 20px 24px; box-shadow: var(--shadow-lg);
+      display: flex; align-items: center; gap: 14px;
+    }
+    .badge-icon {
+      width: 48px; height: 48px; background: var(--jungle);
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .badge-text strong { display: block; font-size: 1.4rem; font-weight: 700; color: var(--jungle); }
+    .badge-text span { font-size: 0.8rem; color: var(--mid); }
+    .pillars { display: flex; flex-direction: column; gap: 28px; margin-top: 40px; }
+    .pillar { display: flex; gap: 18px; align-items: flex-start; }
+    .pillar-icon {
+      width: 44px; height: 44px; background: var(--sand);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .pillar h4 { font-size: 1rem; font-weight: 600; color: var(--jungle); margin-bottom: 4px; }
+    .pillar p { font-size: 0.9rem; color: var(--mid); line-height: 1.6; }
+
+    /* ─── TOURS ───────────────────────────────────────── */
+    .tours { background: var(--white); }
+    .tours-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; margin-bottom: 48px; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
+    .tour-card {
+      background: var(--mist); border-radius: var(--radius);
+      overflow: hidden; box-shadow: var(--shadow);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .tour-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .tour-card-img {
+      width: 100%; height: 220px; object-fit: cover; display: block;
+      transition: transform 0.4s;
+    }
+    .tour-card:hover .tour-card-img { transform: scale(1.04); }
+    .tour-card-img-wrap { overflow: hidden; position: relative; }
+    .tour-badge {
+      position: absolute; top: 14px; left: 14px;
+      background: var(--coral); color: var(--white);
+      font-size: 0.72rem; font-weight: 600; padding: 4px 12px;
+      border-radius: 100px; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .tour-card-body { padding: 24px; }
+    .tour-meta { display: flex; gap: 16px; margin-bottom: 10px; }
+    .tour-meta-item { font-size: 0.8rem; color: var(--mid); display: flex; align-items: center; gap: 5px; }
+    .tour-card-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--jungle); margin-bottom: 8px; }
+    .tour-card-desc { font-size: 0.88rem; color: var(--mid); line-height: 1.65; margin-bottom: 20px; }
+    .tour-card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .tour-price { font-size: 1.25rem; font-weight: 700; color: var(--jungle); }
+    .tour-price span { font-size: 0.75rem; font-weight: 400; color: var(--mid); }
+    .btn-card {
+      background: var(--jungle); color: var(--white);
+      padding: 10px 22px; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-card:hover { background: var(--jungle-light); transform: translateY(-1px); }
+
+    /* ─── CARS ────────────────────────────────────────── */
+    .cars { background: var(--jungle); }
+    .cars .section-title { color: var(--white); }
+    .cars .section-sub { color: rgba(255,255,255,0.65); }
+    .cars .section-label { color: #A8D5B5; }
+    .cars-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px; margin-bottom: 48px; }
+    .car-card {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10);
+      border-radius: var(--radius); overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .car-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.30); border-color: rgba(255,255,255,0.25); }
+    .car-card-img { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .car-card-body { padding: 22px; }
+    .car-card-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+    .car-specs { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; }
+    .car-spec { font-size: 0.78rem; color: rgba(255,255,255,0.55); display: flex; align-items: center; gap: 5px; }
+    .car-card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .car-price { color: #A8D5B5; font-size: 1.2rem; font-weight: 700; }
+    .car-price span { font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.45); }
+    .btn-card-light {
+      background: rgba(255,255,255,0.12); color: var(--white);
+      padding: 10px 22px; border-radius: 100px;
+      font-size: 0.85rem; font-weight: 600; text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.20);
+      transition: background 0.2s;
+    }
+    .btn-card-light:hover { background: rgba(255,255,255,0.22); }
+
+    /* ─── HOW IT WORKS ────────────────────────────────── */
+    .how { background: var(--sand); }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; margin-top: 56px; }
+    .step { text-align: center; }
+    .step-num {
+      width: 56px; height: 56px; background: var(--jungle);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700; margin: 0 auto 20px;
+    }
+    .step h4 { font-size: 1rem; font-weight: 600; color: var(--jungle); margin-bottom: 8px; }
+    .step p { font-size: 0.88rem; color: var(--mid); line-height: 1.65; }
+    .step-connector { display: none; }
+
+    /* ─── TESTIMONIALS ────────────────────────────────── */
+    .testimonials { background: var(--mist); }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px; }
+    .testi-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 32px; box-shadow: var(--shadow);
+    }
+    .testi-stars { color: #F59E0B; font-size: 0.9rem; margin-bottom: 16px; }
+    .testi-quote { font-size: 0.95rem; color: var(--charcoal); line-height: 1.75; margin-bottom: 24px; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
+      background: var(--sand); display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: var(--jungle); font-size: 1rem; flex-shrink: 0;
+    }
+    .testi-name { font-weight: 600; font-size: 0.9rem; color: var(--jungle); }
+    .testi-loc { font-size: 0.78rem; color: var(--mid); }
+
+    /* ─── MEET SECTION ────────────────────────────────── */
+    .meet {
+      background: linear-gradient(135deg, var(--jungle) 0%, #0F2419 100%);
+      position: relative; overflow: hidden;
+    }
+    .meet::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(232,98,58,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .meet-inner {
+      max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 2;
+    }
+    .meet .section-title { color: var(--white); }
+    .meet .section-label { color: #A8D5B5; }
+    .meet-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.70); line-height: 1.75;
+      max-width: 580px; margin: 0 auto 56px;
+    }
+    .meet-form {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px; padding: 48px; max-width: 680px; margin: 0 auto;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-group label { font-size: 0.83rem; font-weight: 500; color: rgba(255,255,255,0.70); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px; padding: 13px 16px;
+      color: var(--white); font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.35); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: rgba(232,98,58,0.6); }
+    .form-group select option { background: #1A3D2B; color: var(--white); }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+    .btn-submit {
+      width: 100%; background: var(--coral); color: var(--white);
+      border: none; border-radius: 100px; padding: 16px 36px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;
+      cursor: pointer; margin-top: 24px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-submit:hover { background: var(--coral-dark); transform: translateY(-2px); }
+    .form-note { font-size: 0.78rem; color: rgba(255,255,255,0.40); text-align: center; margin-top: 14px; }
+
+    /* ─── MODAL (Booking) ──────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      z-index: 200; display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--white); border-radius: 20px;
+      max-width: 540px; width: 100%; max-height: 90vh; overflow-y: auto;
+      padding: 40px; transform: translateY(20px); transition: transform 0.25s;
+    }
+    .modal-overlay.active .modal { transform: translateY(0); }
+    .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--jungle); }
+    .modal-close {
+      background: var(--mist); border: none; border-radius: 50%;
+      width: 36px; height: 36px; cursor: pointer; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--mid); transition: background 0.2s;
+    }
+    .modal-close:hover { background: var(--sand); }
+    .modal .form-group { margin-bottom: 18px; }
+    .modal .form-group label { font-size: 0.83rem; font-weight: 500; color: var(--mid); }
+    .modal .form-group input,
+    .modal .form-group select,
+    .modal .form-group textarea {
+      background: var(--mist); border: 1.5px solid rgba(26,61,43,0.15);
+      border-radius: 10px; padding: 13px 16px;
+      color: var(--charcoal); font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      outline: none; width: 100%; transition: border-color 0.2s;
+    }
+    .modal .form-group input:focus,
+    .modal .form-group select:focus,
+    .modal .form-group textarea:focus { border-color: var(--jungle); }
+    .modal .form-row { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .modal-submit {
+      width: 100%; background: var(--coral); color: var(--white);
+      border: none; border-radius: 100px; padding: 16px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;
+      cursor: pointer; margin-top: 8px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .modal-submit:hover { background: var(--coral-dark); transform: translateY(-1px); }
+    .modal-item-info {
+      background: var(--mist); border-radius: 12px; padding: 16px 20px;
+      margin-bottom: 24px; display: flex; gap: 14px; align-items: center;
+    }
+    .modal-item-info img { width: 70px; height: 54px; border-radius: 8px; object-fit: cover; }
+    .modal-item-name { font-weight: 600; color: var(--jungle); font-size: 0.95rem; }
+    .modal-item-price { color: var(--coral); font-weight: 700; font-size: 0.9rem; }
+    .success-msg {
+      text-align: center; padding: 20px 0;
+    }
+    .success-msg .check {
+      width: 64px; height: 64px; background: #DCFCE7; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 1.8rem;
+    }
+    .success-msg h3 { font-family: 'Playfair Display', serif; color: var(--jungle); margin-bottom: 10px; }
+    .success-msg p { color: var(--mid); font-size: 0.9rem; }
+
+    /* ─── ADMIN ───────────────────────────────────────── */
+    .admin-wrap { display: none; }
+    .admin-wrap.active { display: block; }
+    .admin-panel {
+      max-width: 900px; margin: 100px auto 60px; padding: 0 5%;
+    }
+    .admin-header { margin-bottom: 40px; }
+    .admin-header h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--jungle); margin-bottom: 8px; }
+    .admin-header p { color: var(--mid); }
+    .admin-tabs { display: flex; gap: 4px; background: var(--sand); border-radius: 12px; padding: 4px; margin-bottom: 36px; }
+    .admin-tab {
+      flex: 1; padding: 10px; border: none; background: transparent;
+      border-radius: 9px; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      font-weight: 500; color: var(--mid); cursor: pointer; transition: all 0.2s;
+    }
+    .admin-tab.active { background: var(--white); color: var(--jungle); box-shadow: var(--shadow); }
+    .admin-content { display: none; }
+    .admin-content.active { display: block; }
+    .admin-card {
+      background: var(--white); border-radius: var(--radius); padding: 28px;
+      box-shadow: var(--shadow); margin-bottom: 20px;
+    }
+    .admin-item-row {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 0; border-bottom: 1px solid var(--mist);
+    }
+    .admin-item-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .admin-item-img { width: 64px; height: 48px; border-radius: 8px; object-fit: cover; }
+    .admin-item-info { flex: 1; }
+    .admin-item-name { font-weight: 600; color: var(--jungle); font-size: 0.95rem; }
+    .admin-item-meta { font-size: 0.8rem; color: var(--mid); }
+    .admin-price-input {
+      width: 90px; background: var(--mist); border: 1.5px solid rgba(26,61,43,0.15);
+      border-radius: 8px; padding: 8px 12px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--jungle);
+      font-weight: 600; outline: none; transition: border-color 0.2s;
+    }
+    .admin-price-input:focus { border-color: var(--jungle); }
+    .admin-save-btn {
+      background: var(--jungle); color: var(--white);
+      border: none; border-radius: 8px; padding: 8px 16px;
+      font-family: 'Inter', sans-serif; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .admin-save-btn:hover { background: var(--jungle-light); }
+    .add-item-form { margin-top: 24px; border-top: 1px solid var(--mist); padding-top: 24px; }
+    .add-item-form h4 { font-size: 1rem; font-weight: 600; color: var(--jungle); margin-bottom: 18px; }
+    .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .admin-input {
+      background: var(--mist); border: 1.5px solid rgba(26,61,43,0.15);
+      border-radius: 10px; padding: 12px 14px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--charcoal);
+      outline: none; width: 100%; transition: border-color 0.2s;
+    }
+    .admin-input:focus { border-color: var(--jungle); }
+    .admin-input::placeholder { color: rgba(44,44,44,0.35); }
+    .upload-zone {
+      border: 2px dashed rgba(26,61,43,0.25); border-radius: 12px;
+      padding: 32px; text-align: center; cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: var(--mist); margin-bottom: 16px;
+    }
+    .upload-zone:hover { border-color: var(--jungle); background: var(--sand); }
+    .upload-zone .upload-icon { font-size: 2rem; margin-bottom: 8px; }
+    .upload-zone p { font-size: 0.85rem; color: var(--mid); }
+    .upload-zone strong { color: var(--jungle); }
+    .upload-zone input[type="file"] { display: none; }
+    .upload-preview { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+    .upload-thumb { width: 80px; height: 60px; border-radius: 8px; object-fit: cover; }
+    .btn-add {
+      background: var(--coral); color: var(--white);
+      border: none; border-radius: 100px; padding: 12px 28px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s; margin-top: 20px;
+    }
+    .btn-add:hover { background: var(--coral-dark); }
+    .saved-toast {
+      position: fixed; bottom: 24px; right: 24px; z-index: 300;
+      background: var(--jungle); color: var(--white);
+      padding: 14px 24px; border-radius: 12px;
+      font-size: 0.9rem; font-weight: 500; box-shadow: var(--shadow-lg);
+      transform: translateY(80px); opacity: 0; transition: all 0.3s;
+    }
+    .saved-toast.show { transform: translateY(0); opacity: 1; }
+    .admin-login {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 20px; background: var(--mist);
+    }
+    .admin-login-card {
+      background: var(--white); border-radius: 20px; padding: 48px;
+      max-width: 400px; width: 100%; box-shadow: var(--shadow-lg);
+      text-align: center;
+    }
+    .admin-login-card h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--jungle); margin-bottom: 8px; }
+    .admin-login-card p { color: var(--mid); margin-bottom: 32px; font-size: 0.9rem; }
+    .admin-login-card .form-group { text-align: left; margin-bottom: 18px; }
+    .admin-login-card .form-group label { font-size: 0.83rem; font-weight: 500; color: var(--mid); display: block; margin-bottom: 8px; }
+    .admin-login-card .form-group input {
+      width: 100%; background: var(--mist); border: 1.5px solid rgba(26,61,43,0.15);
+      border-radius: 10px; padding: 13px 16px;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem; color: var(--charcoal); outline: none;
+    }
+    .admin-login-btn {
+      width: 100%; background: var(--jungle); color: var(--white);
+      border: none; border-radius: 100px; padding: 16px;
+      font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s; margin-top: 8px;
+    }
+    .admin-login-btn:hover { background: var(--jungle-light); }
+    .login-error { color: #DC2626; font-size: 0.82rem; margin-top: 10px; }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: #0F2419; color: rgba(255,255,255,0.65);
+      padding: 72px 5% 36px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 56px; }
+    .footer-brand .nav-logo { font-size: 1.6rem; color: var(--white); }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.75; margin-top: 14px; max-width: 260px; }
+    .footer-col h5 { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.9); margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-bottom p { font-size: 0.82rem; }
+    .footer-admin-link { font-size: 0.78rem; color: rgba(255,255,255,0.25); text-decoration: none; transition: color 0.2s; }
+    .footer-admin-link:hover { color: rgba(255,255,255,0.55); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-image-badge { right: 0; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-grid-3 { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--mist); padding: 24px 5%; box-shadow: var(--shadow); }
+      .nav-hamburger { display: flex; }
+      .hero h1 { font-size: 2.4rem; }
+      .footer-top { grid-template-columns: 1fr; }
+      .meet-form { padding: 28px 20px; }
+      .modal { padding: 28px 20px; }
+      .admin-panel { margin-top: 80px; }
+      .form-grid-3 { grid-template-columns: 1fr; }
+      .trust-divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ PUBLIC SITE ══════════════════ -->
+<div id="publicSite">
+
+  <!-- NAV -->
+  <nav id="mainNav">
+    <a href="#" class="nav-logo" onclick="scrollToTop()">Costa Rica<span>Hub</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#tours">Tours</a></li>
+      <li><a href="#cars">Car Rental</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#meet" class="nav-cta">Book a Call</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <span class="hero-eyebrow">🌿 Pura Vida Since 2010</span>
+      <h1>Experience Costa Rica<br><em>the way it was meant to be.</em></h1>
+      <p class="hero-sub">Private, tailored tours crafted by local experts — and the freedom to explore on your own terms with our curated rental fleet.</p>
+      <div class="hero-actions">
+        <a href="#tours" class="btn-primary">Explore Tours</a>
+        <a href="#meet" class="btn-outline">Talk to an Expert</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#1A3D2B" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        Licensed & Insured
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#1A3D2B" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        1,400+ Happy Travelers
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#1A3D2B" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/></svg>
+        24/7 Local Support
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#1A3D2B" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+        4.9 / 5 on TripAdvisor
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#1A3D2B" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Free Cancellation
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-image-wrap">
+          <img
+            src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=800&q=80"
+            alt="Local guide in Costa Rica rainforest"
+            class="about-image-main"
+          />
+          <div class="about-image-badge">
+            <div class="badge-icon">🌿</div>
+            <div class="badge-text">
+              <strong>15 Years</strong>
+              <span>Serving US Travelers</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p class="section-label">Why Costa Rica Hub</p>
+          <h2 class="section-title">We know every trail, beach, and hidden gem.</h2>
+          <p class="section-sub">We're not a booking platform — we're your on-the-ground partners. Every itinerary is hand-crafted and every car is personally inspected by our team in Costa Rica.</p>
+          <div class="pillars">
+            <div class="pillar">
+              <div class="pillar-icon">🗺️</div>
+              <div>
+                <h4>Tailored from day one</h4>
+                <p>No cookie-cutter packages. We match your travel style, interests, and pace — then build around it.</p>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">🤝</div>
+              <div>
+                <h4>Local guides, real connections</h4>
+                <p>Every guide is Costa Rican-born, bilingual, and deeply versed in the country's ecosystems and culture.</p>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-icon">🛡️</div>
+              <div>
+                <h4>Fully backed & insured</h4>
+                <p>All tours and vehicles are covered by comprehensive insurance. Travel with genuine peace of mind.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOURS -->
+  <section class="tours" id="tours">
+    <div class="section-inner">
+      <div class="tours-header">
+        <div>
+          <p class="section-label">Signature Experiences</p>
+          <h2 class="section-title">Handcrafted Tours</h2>
+          <p class="section-sub" style="margin-bottom:0">Each tour is led by an expert local guide and can be fully customized for your group.</p>
+        </div>
+        <a href="#meet" class="btn-primary">Request Custom Tour</a>
+      </div>
+      <div class="card-grid" id="toursGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CARS -->
+  <section class="cars" id="cars">
+    <div class="section-inner">
+      <div class="cars-header">
+        <div>
+          <p class="section-label">Explore Freely</p>
+          <h2 class="section-title">Rental Fleet</h2>
+          <p class="section-sub" style="margin-bottom:0">Reliable, well-maintained vehicles — from fuel-efficient sedans to rugged 4x4s for off-road adventures.</p>
+        </div>
+      </div>
+      <div class="card-grid" id="carsGrid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="section-inner">
+      <div style="text-align:center">
+        <p class="section-label">Simple Process</p>
+        <h2 class="section-title">From dream to reality in 4 steps</h2>
+        <p class="section-sub" style="margin: 0 auto 0">Planning a trip to Costa Rica shouldn't be stressful. We've made the whole process as smooth as possible for US travelers.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>Tell us your vision</h4>
+          <p>Fill out our quick form or book a call with a Costa Rica specialist. Share your dates, group size, and travel style.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Receive your proposal</h4>
+          <p>Within 24 hours, you'll get a tailored itinerary with transparent pricing — no hidden fees, ever.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Confirm & prepare</h4>
+          <p>Approve the plan, and we'll handle all the logistics. You'll receive a full pre-trip guide for peace of mind.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>Arrive & experience</h4>
+          <p>Your guide meets you at the airport. From that moment on, all you have to do is enjoy Costa Rica.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-inner">
+      <div style="text-align:center; margin-bottom: 56px;">
+        <p class="section-label">Real Stories</p>
+        <h2 class="section-title">What US travelers say</h2>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"Costa Rica Hub took care of every detail. Our guide, Carlos, knew exactly when the wildlife would be most active. It was the trip of a lifetime — and we're already planning to go back."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">SM</div>
+            <div><div class="testi-name">Sarah M.</div><div class="testi-loc">Seattle, WA</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"The rental car was spotless and the handoff was seamless. They even gave us a local SIM card and a hand-drawn map of the best beach roads. Felt like we had a friend in the country."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">JR</div>
+            <div><div class="testi-name">James R.</div><div class="testi-loc">Austin, TX</div></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-quote">"We were nervous about traveling with kids, but the team customized everything perfectly. The Arenal tour was paced just right, and our kids still talk about the sloths they spotted."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">LK</div>
+            <div><div class="testi-name">Linda K.</div><div class="testi-loc">Chicago, IL</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEET / BOOK A CALL -->
+  <section class="meet" id="meet">
+    <div class="meet-inner section-inner">
+      <p class="section-label">Talk to Us</p>
+      <h2 class="section-title">Book a free consultation</h2>
+      <p class="meet-sub">Speak directly with a Costa Rica expert. We'll answer every question and help you design the perfect trip — no commitment required.</p>
+      <div class="meet-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Sarah" id="meetFirst" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Miller" id="meetLast" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="sarah@email.com" id="meetEmail" />
+          </div>
+          <div class="form-group">
+            <label>Phone (optional)</label>
+            <input type="tel" placeholder="+1 (555) 000-0000" id="meetPhone" />
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:20px">
+          <label>What are you interested in?</label>
+          <select id="meetInterest">
+            <option value="">Select one…</option>
+            <option>Guided Tour</option>
+            <option>Car Rental</option>
+            <option>Tour + Car Rental Package</option>
+            <option>Custom Itinerary</option>
+            <option>Just exploring options</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell us about your trip</label>
+          <textarea placeholder="Dates, group size, destinations you have in mind…" id="meetMessage"></textarea>
+        </div>
+        <button class="btn-submit" onclick="submitMeetForm()">Schedule My Free Consultation →</button>
+        <p class="form-note">🔒 Your information is private and will never be shared. We'll respond within a few hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo" onclick="scrollToTop()">Costa Rica<span style="color:var(--coral)">Hub</span></a>
+          <p>Your trusted partner for tailored tours and car rentals in Costa Rica. Serving US travelers since 2010.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Tours</h5>
+          <ul>
+            <li><a href="#tours">All Tours</a></li>
+            <li><a href="#tours">Rainforest & Wildlife</a></li>
+            <li><a href="#tours">Volcano Adventures</a></li>
+            <li><a href="#tours">Beach & Surf</a></li>
+            <li><a href="#tours">Family Packages</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Car Rental</h5>
+          <ul>
+            <li><a href="#cars">All Vehicles</a></li>
+            <li><a href="#cars">Sedans & SUVs</a></li>
+            <li><a href="#cars">4x4 Off-Road</a></li>
+            <li><a href="#cars">Insurance Info</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#meet">Contact</a></li>
+            <li><a href="#how">How It Works</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Costa Rica Hub. All rights reserved.</p>
+        <a href="#" class="footer-admin-link" onclick="showAdmin(event)">Admin</a>
+      </div>
+    </div>
+  </footer>
+</div>
+<!-- END PUBLIC SITE -->
+
+<!-- ══════════════════ ADMIN PANEL ══════════════════ -->
+<div id="adminWrap" class="admin-wrap">
+
+  <!-- Login screen -->
+  <div id="adminLogin">
+    <div class="admin-login">
+      <div class="admin-login-card">
+        <h2>Admin Login</h2>
+        <p>Enter your credentials to manage content</p>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" id="adminUser" placeholder="admin" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="adminPass" placeholder="••••••••" />
+        </div>
+        <button class="admin-login-btn" onclick="adminLogin()">Sign In</button>
+        <p class="login-error" id="loginError" style="display:none">Incorrect credentials. Try again.</p>
+        <p style="margin-top:20px"><a href="#" onclick="hideAdmin(event)" style="color:var(--mid);font-size:0.82rem">← Back to site</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="adminDash" style="display:none">
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 5%;background:var(--white);box-shadow:var(--shadow)">
+      <span class="nav-logo">Costa Rica<span>Hub</span> <span style="font-size:0.7rem;font-weight:400;color:var(--mid);font-family:'Inter',sans-serif;margin-left:8px">Admin</span></span>
+      <div style="display:flex;gap:16px;align-items:center">
+        <a href="#" onclick="hideAdmin(event)" style="font-size:0.85rem;color:var(--mid);text-decoration:none">View Site</a>
+        <button onclick="adminLogout()" style="background:var(--mist);border:none;border-radius:8px;padding:8px 16px;font-family:'Inter',sans-serif;font-size:0.85rem;cursor:pointer;color:var(--charcoal)">Sign Out</button>
+      </div>
+    </nav>
+
+    <div class="admin-panel">
+      <div class="admin-header">
+        <h2>Content Manager</h2>
+        <p>Add, edit, and update tours, cars, and pricing.</p>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab active" onclick="switchAdminTab('tours', this)">🏕️ Tours</button>
+        <button class="admin-tab" onclick="switchAdminTab('cars', this)">🚗 Cars</button>
+        <button class="admin-tab" onclick="switchAdminTab('inquiries', this)">📩 Inquiries</button>
+      </div>
+
+      <!-- TOURS TAB -->
+      <div class="admin-content active" id="adminTours">
+        <div class="admin-card">
+          <h4 style="font-size:1rem;font-weight:600;color:var(--jungle);margin-bottom:18px">Current Tours — Update Pricing</h4>
+          <div id="adminToursList"></div>
+        </div>
+        <div class="admin-card">
+          <div class="add-item-form" style="border:none;padding:0;margin:0">
+            <h4>Add New Tour</h4>
+            <div class="upload-zone" onclick="document.getElementById('tourImgInput').click()">
+              <input type="file" id="tourImgInput" accept="image/*" multiple onchange="previewImages(this,'tourImgPreview')" />
+              <div class="upload-icon">📸</div>
+              <p><strong>Click to upload photos</strong> or drag & drop<br>JPG, PNG — up to 10 images</p>
+            </div>
+            <div class="upload-preview" id="tourImgPreview"></div>
+            <div class="form-grid-3">
+              <input class="admin-input" placeholder="Tour name" id="newTourName" />
+              <input class="admin-input" placeholder="Duration (e.g. Full Day)" id="newTourDuration" />
+              <input class="admin-input" placeholder="Group size (e.g. 2–12)" id="newTourGroup" />
+            </div>
+            <div style="margin-top:16px">
+              <input class="admin-input" placeholder="Short description" id="newTourDesc" style="margin-bottom:12px" />
+              <div style="display:flex;gap:16px">
+                <input class="admin-input" placeholder="Price per person ($)" id="newTourPrice" type="number" />
+                <input class="admin-input" placeholder="Badge label (e.g. Most Popular)" id="newTourBadge" />
+              </div>
+            </div>
+            <button class="btn-add" onclick="addTour()">+ Add Tour</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARS TAB -->
+      <div class="admin-content" id="adminCars">
+        <div class="admin-card">
+          <h4 style="font-size:1rem;font-weight:600;color:var(--jungle);margin-bottom:18px">Current Cars — Update Pricing</h4>
+          <div id="adminCarsList"></div>
+        </div>
+        <div class="admin-card">
+          <div class="add-item-form" style="border:none;padding:0;margin:0">
+            <h4>Add New Vehicle</h4>
+            <div class="upload-zone" onclick="document.getElementById('carImgInput').click()">
+              <input type="file" id="carImgInput" accept="image/*" multiple onchange="previewImages(this,'carImgPreview')" />
+              <div class="upload-icon">📸</div>
+              <p><strong>Click to upload photos</strong> or drag & drop<br>JPG, PNG — up to 5 images</p>
+            </div>
+            <div class="upload-preview" id="carImgPreview"></div>
+            <div class="form-grid-3">
+              <input class="admin-input" placeholder="Vehicle name" id="newCarName" />
+              <input class="admin-input" placeholder="Type (e.g. SUV, 4x4)" id="newCarType" />
+              <input class="admin-input" placeholder="Seats (e.g. 5)" id="newCarSeats" />
+            </div>
+            <div style="margin-top:16px;display:flex;gap:16px">
+              <input class="admin-input" placeholder="Transmission (Auto / Manual)" id="newCarTrans" />
+              <input class="admin-input" placeholder="Price per day ($)" id="newCarPrice" type="number" />
+            </div>
+            <button class="btn-add" onclick="addCar()">+ Add Vehicle</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- INQUIRIES TAB -->
+      <div class="admin-content" id="adminInquiries">
+        <div class="admin-card" id="inquiriesList">
+          <p style="color:var(--mid);font-size:0.9rem;text-align:center;padding:24px 0">No inquiries yet. They'll appear here once visitors submit requests.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- END ADMIN PANEL -->
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <div id="modalContent">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Request Booking</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-item-info" id="modalItemInfo"></div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>Full Name</label>
+        <input type="text" id="bookName" placeholder="Sarah Miller" />
+      </div>
+      <div class="form-row" style="margin-bottom:16px">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="bookEmail" placeholder="sarah@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="bookPhone" placeholder="+1 (555) 000-0000" />
+        </div>
+      </div>
+      <div class="form-row" style="margin-bottom:16px">
+        <div class="form-group">
+          <label>Preferred Date</label>
+          <input type="date" id="bookDate" />
+        </div>
+        <div class="form-group">
+          <label id="bookGroupLabel">Group Size</label>
+          <input type="number" id="bookGroup" placeholder="2" min="1" />
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:16px">
+        <label>Additional Notes</label>
+        <textarea id="bookNotes" placeholder="Any special requests, dietary restrictions, questions…" style="min-height:80px;resize:vertical;width:100%;background:var(--mist);border:1.5px solid rgba(26,61,43,0.15);border-radius:10px;padding:13px 16px;font-family:'Inter',sans-serif;font-size:0.9rem;color:var(--charcoal);outline:none"></textarea>
+      </div>
+      <button class="modal-submit" onclick="submitBooking()">Send Booking Request →</button>
+    </div>
+    <div id="modalSuccess" style="display:none">
+      <div class="modal-header" style="justify-content:flex-end">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="success-msg">
+        <div class="check">✓</div>
+        <h3>Request Received!</h3>
+        <p>Thanks for reaching out. Our team will confirm your booking within <strong>a few hours</strong> via email. We can't wait to welcome you to Costa Rica! 🌿</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="saved-toast" id="savedToast">✓ Saved successfully</div>
+
+<script>
+  // ─── DATA STORE ──────────────────────────────────────
+  let tours = [
+    {
+      id: 1,
+      name: "Arenal Volcano & Hot Springs",
+      img: "https://images.unsplash.com/photo-1591604030-359b14abc16a?w=600&q=80",
+      duration: "Full Day",
+      group: "2–14",
+      desc: "Witness the majestic Arenal Volcano up close, hike through lush rainforest, and unwind in natural hot springs at sunset.",
+      price: 189,
+      badge: "Most Popular"
+    },
+    {
+      id: 2,
+      name: "Manuel Antonio Wildlife Walk",
+      img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80",
+      duration: "Half Day",
+      group: "2–10",
+      desc: "Spot sloths, white-faced monkeys, and scarlet macaws in Manuel Antonio National Park with an expert naturalist guide.",
+      price: 129,
+      badge: "Family Favorite"
+    },
+    {
+      id: 3,
+      name: "Monteverde Cloud Forest",
+      img: "https://images.unsplash.com/photo-1518560954246-98cb2cbdb997?w=600&q=80",
+      duration: "Full Day",
+      group: "2–12",
+      desc: "Glide through treetops on suspension bridges and zip-lines in Monteverde's mystical cloud forest — a world above the world.",
+      price: 219,
+      badge: "Adventure"
+    },
+    {
+      id: 4,
+      name: "Tortuguero Canoe Safari",
+      img: "https://images.unsplash.com/photo-1598935898639-81586f7d2129?w=600&q=80",
+      duration: "Full Day",
+      group: "2–8",
+      desc: "Paddle through winding canals in Tortuguero National Park, home to sea turtles, caimans, and river otters.",
+      price: 249,
+      badge: "Exclusive"
+    }
+  ];
+
+  let cars = [
+    {
+      id: 1,
+      name: "Toyota Hilux 4x4",
+      img: "https://images.unsplash.com/photo-1586864387789-628af9feed72?w=600&q=80",
+      type: "4x4 Pickup",
+      seats: 5,
+      trans: "Automatic",
+      price: 95
+    },
+    {
+      id: 2,
+      name: "Hyundai Tucson SUV",
+      img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=80",
+      type: "SUV",
+      seats: 5,
+      trans: "Automatic",
+      price: 72
+    },
+    {
+      id: 3,
+      name: "Toyota Yaris Sedan",
+      img: "https://images.unsplash.com/photo-1617654112368-307921291f42?w=600&q=80",
+      type: "Sedan",
+      seats: 5,
+      trans: "Automatic",
+      price: 48
+    },
+    {
+      id: 4,
+      name: "Toyota Land Cruiser",
+      img: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80",
+      type: "4x4 Premium",
+      seats: 7,
+      trans: "Automatic",
+      price: 135
+    }
+  ];
+
+  let inquiries = [];
+  let currentBooking = null;
+
+  // ─── RENDER TOURS ─────────────────────────────────────
+  function renderTours() {
+    const grid = document.getElementById('toursGrid');
+    grid.innerHTML = tours.map(t => `
+      <div class="tour-card">
+        <div class="tour-card-img-wrap">
+          <img src="${t.img}" alt="${t.name}" class="tour-card-img" onerror="this.src='https://images.unsplash.com/photo-1518560954246-98cb2cbdb997?w=600&q=80'" />
+          ${t.badge ? `<span class="tour-badge">${t.badge}</span>` : ''}
+        </div>
+        <div class="tour-card-body">
+          <div class="tour-meta">
+            <span class="tour-meta-item">⏱ ${t.duration}</span>
+            <span class="tour-meta-item">👥 ${t.group} people</span>
+          </div>
+          <div class="tour-card-title">${t.name}</div>
+          <p class="tour-card-desc">${t.desc}</p>
+          <div class="tour-card-footer">
+            <div class="tour-price">$${t.price} <span>/ person</span></div>
+            <a href="#" class="btn-card" onclick="openBooking(event,'tour',${t.id})">Book Now</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ─── RENDER CARS ──────────────────────────────────────
+  function renderCars() {
+    const grid = document.getElementById('carsGrid');
+    grid.innerHTML = cars.map(c => `
+      <div class="car-card">
+        <img src="${c.img}" alt="${c.name}" class="car-card-img" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80'" />
+        <div class="car-card-body">
+          <div class="car-card-title">${c.name}</div>
+          <div class="car-specs">
+            <span class="car-spec">🚗 ${c.type}</span>
+            <span class="car-spec">💺 ${c.seats} seats</span>
+            <span class="car-spec">⚙️ ${c.trans}</span>
+          </div>
+          <div class="car-card-footer">
+            <div class="car-price">$${c.price} <span>/ day</span></div>
+            <a href="#" class="btn-card-light" onclick="openBooking(event,'car',${c.id})">Reserve</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ─── BOOKING MODAL ────────────────────────────────────
+  function openBooking(e, type, id) {
+    e.preventDefault();
+    document.getElementById('modalContent').style.display = 'block';
+    document.getElementById('modalSuccess').style.display = 'none';
+    const item = type === 'tour' ? tours.find(t => t.id === id) : cars.find(c => c.id === id);
+    currentBooking = { type, item };
+    document.getElementById('modalTitle').textContent = type === 'tour' ? 'Book Tour' : 'Reserve Vehicle';
+    document.getElementById('bookGroupLabel').textContent = type === 'tour' ? 'Group Size' : 'Days Needed';
+    document.getElementById('bookGroup').placeholder = type === 'tour' ? '2' : '5';
+    document.getElementById('modalItemInfo').innerHTML = `
+      <img src="${item.img}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1518560954246-98cb2cbdb997?w=600&q=80'" />
+      <div>
+        <div class="modal-item-name">${item.name}</div>
+        <div class="modal-item-price">$${item.price} ${type === 'tour' ? '/ person' : '/ day'}</div>
+      </div>
+    `;
+    document.getElementById('bookingModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('bookingModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('bookingModal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function submitBooking() {
+    const name = document.getElementById('bookName').value.trim();
+    const email = document.getElementById('bookEmail').value.trim();
+    if (!name || !email) { alert('Please fill in your name and email.'); return; }
+    const inquiry = {
+      type: currentBooking.type,
+      item: currentBooking.item.name,
+      name, email,
+      phone: document.getElementById('bookPhone').value,
+      date: document.getElementById('bookDate').value,
+      group: document.getElementById('bookGroup').value,
+      notes: document.getElementById('bookNotes').value,
+      submitted: new Date().toLocaleString()
+    };
+    inquiries.push(inquiry);
+    renderInquiries();
+    document.getElementById('modalContent').style.display = 'none';
+    document.getElementById('modalSuccess').style.display = 'block';
+  }
+
+  // ─── MEET FORM ────────────────────────────────────────
+  function submitMeetForm() {
+    const first = document.getElementById('meetFirst').value.trim();
+    const email = document.getElementById('meetEmail').value.trim();
+    if (!first || !email) { alert('Please enter your name and email.'); return; }
+    const inquiry = {
+      type: 'consultation',
+      item: document.getElementById('meetInterest').value || 'General',
+      name: first + ' ' + document.getElementById('meetLast').value,
+      email,
+      phone: document.getElementById('meetPhone').value,
+      notes: document.getElementById('meetMessage').value,
+      submitted: new Date().toLocaleString()
+    };
+    inquiries.push(inquiry);
+    renderInquiries();
+    // Clear form
+    ['meetFirst','meetLast','meetEmail','meetPhone','meetMessage'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('meetInterest').value = '';
+    showToast('✓ Request sent! We\'ll be in touch within a few hours.');
+  }
+
+  // ─── ADMIN AUTH ──────────────────────────────────────
+  function showAdmin(e) {
+    e.preventDefault();
+    document.getElementById('publicSite').style.display = 'none';
+    document.getElementById('adminWrap').classList.add('active');
+  }
+  function hideAdmin(e) {
+    e.preventDefault();
+    document.getElementById('publicSite').style.display = 'block';
+    document.getElementById('adminWrap').classList.remove('active');
+    document.getElementById('adminDash').style.display = 'none';
+    document.getElementById('adminLogin').style.display = 'block';
+  }
+  function adminLogin() {
+    const u = document.getElementById('adminUser').value;
+    const p = document.getElementById('adminPass').value;
+    if (u === 'admin' && p === 'costarica2026') {
+      document.getElementById('adminLogin').style.display = 'none';
+      document.getElementById('adminDash').style.display = 'block';
+      renderAdminTours();
+      renderAdminCars();
+      renderInquiries();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+    }
+  }
+  function adminLogout() {
+    document.getElementById('adminDash').style.display = 'none';
+    document.getElementById('adminLogin').style.display = 'block';
+    document.getElementById('adminUser').value = '';
+    document.getElementById('adminPass').value = '';
+    document.getElementById('loginError').style.display = 'none';
+  }
+
+  // ─── ADMIN TABS ──────────────────────────────────────
+  function switchAdminTab(tab, btn) {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('admin' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+  }
+
+  // ─── ADMIN TOURS ─────────────────────────────────────
+  function renderAdminTours() {
+    document.getElementById('adminToursList').innerHTML = tours.map(t => `
+      <div class="admin-item-row">
+        <img src="${t.img}" alt="${t.name}" class="admin-item-img" onerror="this.src='https://images.unsplash.com/photo-1518560954246-98cb2cbdb997?w=600&q=80'" />
+        <div class="admin-item-info">
+          <div class="admin-item-name">${t.name}</div>
+          <div class="admin-item-meta">${t.duration} · ${t.group} people</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:0.8rem;color:var(--mid)">$</span>
+          <input class="admin-price-input" value="${t.price}" id="tourPrice_${t.id}" type="number" />
+          <button class="admin-save-btn" onclick="saveTourPrice(${t.id})">Save</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  function saveTourPrice(id) {
+    const val = parseFloat(document.getElementById('tourPrice_' + id).value);
+    if (isNaN(val) || val < 0) return;
+    tours.find(t => t.id === id).price = val;
+    renderTours();
+    showToast('Price updated!');
+  }
+  function addTour() {
+    const name = document.getElementById('newTourName').value.trim();
+    const price = parseFloat(document.getElementById('newTourPrice').value);
+    if (!name || isNaN(price)) { alert('Please enter at least a tour name and price.'); return; }
+    const previews = document.querySelectorAll('#tourImgPreview img');
+    const imgSrc = previews.length > 0 ? previews[0].src : 'https://images.unsplash.com/photo-1518560954246-98cb2cbdb997?w=600&q=80';
+    tours.push({
+      id: Date.now(),
+      name,
+      img: imgSrc,
+      duration: document.getElementById('newTourDuration').value || 'Full Day',
+      group: document.getElementById('newTourGroup').value || '2–12',
+      desc: document.getElementById('newTourDesc').value || 'An unforgettable Costa Rica experience.',
+      price,
+      badge: document.getElementById('newTourBadge').value || ''
+    });
+    ['newTourName','newTourDuration','newTourGroup','newTourDesc','newTourPrice','newTourBadge'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('tourImgPreview').innerHTML = '';
+    renderTours();
+    renderAdminTours();
+    showToast('Tour added!');
+  }
+
+  // ─── ADMIN CARS ──────────────────────────────────────
+  function renderAdminCars() {
+    document.getElementById('adminCarsList').innerHTML = cars.map(c => `
+      <div class="admin-item-row">
+        <img src="${c.img}" alt="${c.name}" class="admin-item-img" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80'" />
+        <div class="admin-item-info">
+          <div class="admin-item-name">${c.name}</div>
+          <div class="admin-item-meta">${c.type} · ${c.seats} seats · ${c.trans}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:0.8rem;color:var(--mid)">$</span>
+          <input class="admin-price-input" value="${c.price}" id="carPrice_${c.id}" type="number" />
+          <button class="admin-save-btn" onclick="saveCarPrice(${c.id})">Save</button>
+        </div>
+      </div>
+    `).join('');
+  }
+  function saveCarPrice(id) {
+    const val = parseFloat(document.getElementById('carPrice_' + id).value);
+    if (isNaN(val) || val < 0) return;
+    cars.find(c => c.id === id).price = val;
+    renderCars();
+    showToast('Price updated!');
+  }
+  function addCar() {
+    const name = document.getElementById('newCarName').value.trim();
+    const price = parseFloat(document.getElementById('newCarPrice').value);
+    if (!name || isNaN(price)) { alert('Please enter at least a vehicle name and price.'); return; }
+    const previews = document.querySelectorAll('#carImgPreview img');
+    const imgSrc = previews.length > 0 ? previews[0].src : 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600&q=80';
+    cars.push({
+      id: Date.now(),
+      name,
+      img: imgSrc,
+      type: document.getElementById('newCarType').value || 'Vehicle',
+      seats: parseInt(document.getElementById('newCarSeats').value) || 5,
+      trans: document.getElementById('newCarTrans').value || 'Automatic',
+      price
+    });
+    ['newCarName','newCarType','newCarSeats','newCarTrans','newCarPrice'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('carImgPreview').innerHTML = '';
+    renderCars();
+    renderAdminCars();
+    showToast('Vehicle added!');
+  }
+
+  // ─── INQUIRIES ────────────────────────────────────────
+  function renderInquiries() {
+    const el = document.getElementById('inquiriesList');
+    if (!el) return;
+    if (inquiries.length === 0) {
+      el.innerHTML = '<p style="color:var(--mid);font-size:0.9rem;text-align:center;padding:24px 0">No inquiries yet. They\'ll appear here once visitors submit requests.</p>';
+      return;
+    }
+    el.innerHTML = inquiries.map((inq, i) => `
+      <div class="admin-item-row" style="flex-wrap:wrap">
+        <div style="flex:1;min-width:200px">
+          <div class="admin-item-name">${inq.name}</div>
+          <div class="admin-item-meta">${inq.email} · ${inq.submitted}</div>
+        </div>
+        <div style="flex:1;min-width:180px">
+          <div style="font-size:0.85rem;font-weight:600;color:var(--coral)">${inq.type.toUpperCase()}</div>
+          <div class="admin-item-meta">${inq.item}</div>
+        </div>
+        <div style="flex:2;min-width:200px">
+          <div class="admin-item-meta">${inq.notes || 'No notes'}</div>
+          ${inq.date ? `<div class="admin-item-meta">📅 ${inq.date}</div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ─── IMAGE PREVIEW ────────────────────────────────────
+  function previewImages(input, previewId) {
+    const preview = document.getElementById(previewId);
+    preview.innerHTML = '';
+    Array.from(input.files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'upload-thumb';
+        preview.appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // ─── TOAST ───────────────────────────────────────────
+  function showToast(msg) {
+    const t = document.getElementById('savedToast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2800);
+  }
+
+  // ─── NAV BEHAVIOR ────────────────────────────────────
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+  });
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return false;
+  }
+
+  // ─── INIT ─────────────────────────────────────────────
+  renderTours();
+  renderCars();
+</script>
+</body>
+</html>
